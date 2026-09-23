@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch & Spin</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#080b14;
+  color:white;
+  min-height:100vh;
+}
+
+.header{
+  padding:22px 18px 15px;
+  background:linear-gradient(135deg,#11182b,#15102b);
+  border-bottom:1px solid #242b40;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:800;
+}
+
+.logo span{
+  color:#8b5cf6;
+}
+
+.sub{
+  color:#9299ad;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.container{
+  max-width:520px;
+  margin:auto;
+  padding:16px;
+  padding-bottom:90px;
+}
+
+.balance{
+  background:linear-gradient(135deg,#6d28d9,#2563eb);
+  border-radius:22px;
+  padding:22px;
+  margin-bottom:15px;
+  box-shadow:0 10px 30px #0005;
+}
+
+.balance small{
+  color:#ddd;
+}
+
+.points{
+  font-size:34px;
+  font-weight:bold;
+  margin:6px 0;
+}
+
+.stats{
+  display:flex;
+  gap:10px;
+}
+
+.stat{
+  flex:1;
+  background:#ffffff18;
+  padding:10px;
+  border-radius:12px;
+  text-align:center;
+}
+
+.stat b{
+  display:block;
+  font-size:18px;
+}
+
+.section-title{
+  margin:22px 0 12px;
+  font-size:19px;
+}
+
+.task{
+  background:#111625;
+  border:1px solid #222b40;
+  border-radius:18px;
+  padding:14px;
+  margin-bottom:12px;
+}
+
+.task-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.task h3{
+  font-size:16px;
+}
+
+.reward{
+  color:#a78bfa;
+  font-weight:bold;
+}
+
+.task p{
+  color:#8e96aa;
+  font-size:12px;
+  margin:8px 0 12px;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.watch{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  background:#7c3aed;
+  color:white;
+  font-weight:bold;
+}
+
+.watch:disabled{
+  background:#303746;
+  color:#777f91;
+}
+
+.spin-box{
+  background:#111625;
+  border:1px solid #222b40;
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+}
+
+.wheel{
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  margin:12px auto 18px;
+  background:conic-gradient(
+    #8b5cf6 0deg 60deg,
+    #2563eb 60deg 120deg,
+    #ec4899 120deg 180deg,
+    #14b8a6 180deg 240deg,
+    #f59e0b 240deg 300deg,
+    #ef4444 300deg 360deg
+  );
+  border:8px solid #20283b;
+  box-shadow:0 0 30px #0008;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform 3s cubic-bezier(.17,.67,.12,1);
+}
+
+.wheel-center{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#0b0f19;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+.spin{
+  padding:13px 35px;
+  border-radius:14px;
+  background:linear-gradient(90deg,#8b5cf6,#ec4899);
+  color:white;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.spin:disabled{
+  opacity:.4;
+}
+
+.notice{
+  margin-top:12px;
+  color:#8e96aa;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:68px;
+  background:#0d111c;
+  border-top:1px solid #22283a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.bottom-inner{
+  width:100%;
+  max-width:520px;
+  display:flex;
+  justify-content:space-around;
+}
+
+.nav{
+  text-align:center;
+  color:#737c90;
+  font-size:11px;
+}
+
+.nav.active{
+  color:#a78bfa;
+}
+
+.nav-icon{
+  font-size:21px;
+  display:block;
+  margin-bottom:3px;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:82px;
+  transform:translateX(-50%) translateY(20px);
+  background:#20283a;
+  padding:12px 18px;
+  border-radius:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">WATCH<span>&</span>SPIN</div>
+  <div class="sub">Watch • Earn Points • Spin Rewards</div>
+</header>
+
+<main class="container">
+
+  <div class="balance">
+    <small>Your Points</small>
+    <div class="points" id="points">0</div>
+
+    <div class="stats">
+      <div class="stat">
+        <b id="streak">0</b>
+        <small>🔥 Streak</small>
+      </div>
+
+      <div class="stat">
+        <b id="tasks">0</b>
+        <small>🎬 Tasks</small>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">🎬 Watch Tasks</h2>
+
+  <div class="task">
+    <div class="task-top">
+      <h3>TikTok Task #01</h3>
+      <span class="reward">+10 P</span>
+    </div>
+    <p>Watch the video for a few seconds to complete this task.</p>
+    <button class="watch" onclick="watchTask(this,10)">
+      ▶ Watch Task
+    </button>
+  </div>
+
+  <div class="task">
+    <div class="task-top">
+      <h3>TikTok Task #02</h3>
+      <span class="reward">+15 P</span>
+    </div>
+    <p>Complete this video task and collect your points.</p>
+    <button class="watch" onclick="watchTask(this,15)">
+      ▶ Watch Task
+    </button>
+  </div>
+
+  <div class="task">
+    <div class="task-top">
+      <h3>Daily Bonus</h3>
+      <span class="reward">+25 P</span>
+    </div>
+    <p>Complete your daily activity to receive bonus points.</p>
+    <button class="watch" onclick="watchTask(this,25)">
+      🎁 Claim Bonus
+    </button>
+  </div>
+
+  <h2 class="section-title">🎡 Lucky Spin</h2>
+
+  <div class="spin-box">
+
+    <div class="wheel" id="wheel">
+      <div class="wheel-center">SPIN</div>
+    </div>
+
+    <button class="spin" id="spinBtn" onclick="spinWheel()">
+      🎡 SPIN NOW
+    </button>
+
+    <div class="notice">
+      Spin costs <b>20 points</b>.<br>
+      Rewards are randomly selected for this demo.
+    </div>
+
+  </div>
+
+</main>
+
+<div class="bottom">
+  <div class="bottom-inner">
+
+    <div class="nav active">
+      <span class="nav-icon">🏠</span>
+      Home
+    </div>
+
+    <div class="nav">
+      <span class="nav-icon">🎬</span>
+      Tasks
+    </div>
+
+    <div class="nav">
+      <span class="nav-icon">🎡</span>
+      Spin
+    </div>
+
+    <div class="nav">
+      <span class="nav-icon">👤</span>
+      Profile
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+let points = Number(localStorage.getItem("points")) || 0;
+let tasks = Number(localStorage.getItem("tasks")) || 0;
+let streak = Number(localStorage.getItem("streak")) || 0;
+
+function updateUI(){
+
+  document.getElementById("points").textContent = points;
+  document.getElementById("tasks").textContent = tasks;
+  document.getElementById("streak").textContent = streak;
+
+  localStorage.setItem("points",points);
+  localStorage.setItem("tasks",tasks);
+  localStorage.setItem("streak",streak);
+}
+
+function showToast(message){
+
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },2200);
+}
+
+function watchTask(button,reward){
+
+  if(button.disabled) return;
+
+  button.disabled = true;
+  button.textContent = "⏳ Watching...";
+
+  setTimeout(()=>{
+
+    points += reward;
+    tasks += 1;
+    streak += 1;
+
+    button.textContent = "✓ Completed";
+
+    updateUI();
+
+    showToast("🎉 +" + reward + " points earned!");
+
+  },5000);
+}
+
+function spinWheel(){
+
+  if(points < 20){
+
+    showToast("❌ You need 20 points to spin.");
+    return;
+  }
+
+  const button = document.getElementById("spinBtn");
+  const wheel = document.getElementById("wheel");
+
+  button.disabled = true;
+
+  points -= 20;
+  updateUI();
+
+  const rotation = 1440 + Math.floor(Math.random()*360);
+
+  wheel.style.transform = "rotate(" + rotation + "deg)";
+
+  setTimeout(()=>{
+
+    const rewards = [5,10,15,20,30,50];
+    const reward = rewards[Math.floor(Math.random()*rewards.length)];
+
+    points += reward;
+
+    updateUI();
+
+    showToast("🎉 Lucky Spin: +" + reward + " points!");
+
+    button.disabled = false;
+
+  },3200);
+}
+
+updateUI();
+
+</script>
+
+</body>
+                          </html>
