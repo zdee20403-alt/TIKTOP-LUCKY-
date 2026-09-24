@@ -447,6 +447,37 @@ document.querySelectorAll(".watch").forEach(button=>{
 });
 
 </script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAyK2ENmsEyQDuQYSi34bcmEIogT2cw9tc",
+    authDomain: "watchandspin-16949.firebaseapp.com",
+    projectId: "watchandspin-16949",
+    storageBucket: "watchandspin-16949.firebasestorage.app",
+    messagingSenderId: "958131507105",
+    appId: "1:958131507105:web:d1af6626d000955e9285e0"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  document.getElementById("loginBtn").addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, provider);
+      location.reload();
+    } catch (error) {
+      console.error(error);
+      alert("Login failed: " + error.message);
+    }
+  });
+  </script>
 
 </body>
         </html>
