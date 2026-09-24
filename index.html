@@ -2,253 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Watch & Spin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Watch & Earn</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
   background:#080b14;
   color:white;
+  font-family:Arial,sans-serif;
   min-height:100vh;
 }
-
 .header{
   padding:22px 18px 15px;
-  background:linear-gradient(135deg,#11182b,#15102b);
+  background:linear-gradient(135deg,#111827,#18243d);
   border-bottom:1px solid #242b40;
 }
-
 .logo{
   font-size:25px;
   font-weight:800;
 }
-
-.logo span{
-  color:#8b5cf6;
-}
-
+.logo span{color:#8b5cf6}
 .sub{
   color:#9299ad;
   font-size:13px;
   margin-top:5px;
 }
-
 .container{
   max-width:520px;
   margin:auto;
   padding:16px;
   padding-bottom:90px;
 }
-
 .balance{
   background:linear-gradient(135deg,#6d28d9,#2563eb);
   border-radius:22px;
   padding:22px;
-  margin-bottom:15px;
-  box-shadow:0 10px 30px #0005;
+  margin-bottom:20px;
 }
-
-.balance small{
-  color:#ddd;
-}
-
+.balance small{color:#ddd}
 .points{
-  font-size:34px;
-  font-weight:bold;
-  margin:6px 0;
+  font-size:38px;
+  font-weight:800;
+  margin:8px 0 16px;
 }
-
 .stats{
   display:flex;
   gap:10px;
 }
-
 .stat{
+  background:rgba(255,255,255,.12);
+  padding:12px;
+  border-radius:14px;
   flex:1;
-  background:#ffffff18;
-  padding:10px;
-  border-radius:12px;
   text-align:center;
 }
-
 .stat b{
   display:block;
-  font-size:18px;
+  font-size:20px;
 }
-
 .section-title{
   margin:22px 0 12px;
-  font-size:19px;
 }
-
 .task{
-  background:#111625;
-  border:1px solid #222b40;
+  background:#111827;
+  border:1px solid #242b40;
   border-radius:18px;
-  padding:14px;
+  padding:16px;
   margin-bottom:12px;
 }
-
 .task-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-
-.task h3{
-  font-size:16px;
-}
-
+.task h3{font-size:16px}
 .reward{
-  color:#a78bfa;
+  color:#4ade80;
   font-weight:bold;
 }
-
 .task p{
-  color:#8e96aa;
-  font-size:12px;
-  margin:8px 0 12px;
+  color:#9299ad;
+  font-size:13px;
+  margin:10px 0;
 }
-
 button{
   border:0;
+  border-radius:12px;
+  padding:12px 16px;
+  font-weight:bold;
   cursor:pointer;
 }
-
 .watch{
   width:100%;
-  padding:12px;
-  border-radius:12px;
-  background:#7c3aed;
+  background:#2563eb;
   color:white;
-  font-weight:bold;
 }
-
 .watch:disabled{
-  background:#303746;
-  color:#777f91;
+  background:#374151;
+  color:#9ca3af;
 }
-
-.spin-box{
-  background:#111625;
-  border:1px solid #222b40;
-  border-radius:20px;
-  padding:20px;
-  text-align:center;
-}
-
-.wheel{
-  width:190px;
-  height:190px;
-  border-radius:50%;
-  margin:12px auto 18px;
-  background:conic-gradient(
-    #8b5cf6 0deg 60deg,
-    #2563eb 60deg 120deg,
-    #ec4899 120deg 180deg,
-    #14b8a6 180deg 240deg,
-    #f59e0b 240deg 300deg,
-    #ef4444 300deg 360deg
-  );
-  border:8px solid #20283b;
-  box-shadow:0 0 30px #0008;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:transform 3s cubic-bezier(.17,.67,.12,1);
-}
-
-.wheel-center{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  background:#0b0f19;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-.spin{
-  padding:13px 35px;
-  border-radius:14px;
-  background:linear-gradient(90deg,#8b5cf6,#ec4899);
-  color:white;
-  font-weight:bold;
-  font-size:15px;
-}
-
-.spin:disabled{
-  opacity:.4;
-}
-
-.notice{
-  margin-top:12px;
-  color:#8e96aa;
-  font-size:12px;
-  line-height:1.5;
-}
-
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:68px;
-  background:#0d111c;
-  border-top:1px solid #22283a;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.bottom-inner{
+.login{
+  background:#fff;
+  color:#111;
   width:100%;
-  max-width:520px;
-  display:flex;
-  justify-content:space-around;
+  margin-top:12px;
 }
-
-.nav{
-  text-align:center;
-  color:#737c90;
-  font-size:11px;
+.logout{
+  background:#ef4444;
+  color:white;
+  width:100%;
+  margin-top:10px;
 }
-
-.nav.active{
-  color:#a78bfa;
+.user{
+  color:#cbd5e1;
+  font-size:13px;
+  margin-top:8px;
+  word-break:break-all;
 }
-
-.nav-icon{
-  font-size:21px;
-  display:block;
-  margin-bottom:3px;
+.notice{
+  background:#111827;
+  border:1px solid #242b40;
+  padding:14px;
+  border-radius:15px;
+  color:#9ca3af;
+  font-size:13px;
+  margin-top:15px;
 }
-
+.hidden{display:none}
 .toast{
   position:fixed;
+  bottom:25px;
   left:50%;
-  bottom:82px;
-  transform:translateX(-50%) translateY(20px);
-  background:#20283a;
+  transform:translateX(-50%);
+  background:#1f2937;
   padding:12px 18px;
   border-radius:12px;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  white-space:nowrap;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+  display:none;
+  z-index:99;
 }
 </style>
 </head>
@@ -256,203 +147,306 @@ button{
 <body>
 
 <header class="header">
-  <div class="logo">WATCH<span>&</span>SPIN</div>
-  <div class="sub">Watch • Earn Points • Spin Rewards</div>
+  <div class="logo">WATCH<span>&</span>EARN</div>
+  <div class="sub">Watch tasks • Earn fixed points</div>
 </header>
 
 <main class="container">
 
-  <div class="balance">
-    <small>Your Points</small>
-    <div class="points" id="points">0</div>
+  <div id="loginBox" class="balance">
+    <small>Account</small>
+    <div class="points" style="font-size:25px">
+      Login to continue
+    </div>
+    <button class="login" id="loginBtn">
+      Continue with Google
+    </button>
+  </div>
 
-    <div class="stats">
-      <div class="stat">
-        <b id="streak">0</b>
-        <small>🔥 Streak</small>
+  <div id="appBox" class="hidden">
+
+    <div class="balance">
+      <small>Your Points</small>
+
+      <div class="points">
+        <span id="points">0</span> P
       </div>
 
-      <div class="stat">
-        <b id="tasks">0</b>
-        <small>🎬 Tasks</small>
+      <div class="stats">
+        <div class="stat">
+          <b id="streak">0</b>
+          <small>🔥 Streak</small>
+        </div>
+
+        <div class="stat">
+          <b id="tasks">0</b>
+          <small>🎬 Tasks</small>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <h2 class="section-title">🎬 Watch Tasks</h2>
+      <div class="user" id="userEmail"></div>
 
-  <div class="task">
-    <div class="task-top">
-      <h3>TikTok Task #01</h3>
-      <span class="reward">+10 P</span>
-    </div>
-    <p>Watch the video for a few seconds to complete this task.</p>
-    <button class="watch" onclick="watchTask(this,10)">
-      ▶ Watch Task
-    </button>
-  </div>
-
-  <div class="task">
-    <div class="task-top">
-      <h3>TikTok Task #02</h3>
-      <span class="reward">+15 P</span>
-    </div>
-    <p>Complete this video task and collect your points.</p>
-    <button class="watch" onclick="watchTask(this,15)">
-      ▶ Watch Task
-    </button>
-  </div>
-
-  <div class="task">
-    <div class="task-top">
-      <h3>Daily Bonus</h3>
-      <span class="reward">+25 P</span>
-    </div>
-    <p>Complete your daily activity to receive bonus points.</p>
-    <button class="watch" onclick="watchTask(this,25)">
-      🎁 Claim Bonus
-    </button>
-  </div>
-
-  <h2 class="section-title">🎡 Lucky Spin</h2>
-
-  <div class="spin-box">
-
-    <div class="wheel" id="wheel">
-      <div class="wheel-center">SPIN</div>
+      <button class="logout" id="logoutBtn">
+        Logout
+      </button>
     </div>
 
-    <button class="spin" id="spinBtn" onclick="spinWheel()">
-      🎡 SPIN NOW
-    </button>
+    <h2 class="section-title">🎬 Watch Tasks</h2>
+
+    <div class="task">
+      <div class="task-top">
+        <h3>Video Task #01</h3>
+        <span class="reward">+10 P</span>
+      </div>
+
+      <p>
+        Watch the task for a few seconds to complete it.
+      </p>
+
+      <button class="watch" data-task="task01">
+        ▶ Watch Task
+      </button>
+    </div>
+
+    <div class="task">
+      <div class="task-top">
+        <h3>Video Task #02</h3>
+        <span class="reward">+10 P</span>
+      </div>
+
+      <p>
+        Complete this fixed-point task.
+      </p>
+
+      <button class="watch" data-task="task02">
+        ▶ Watch Task
+      </button>
+    </div>
+
+    <div class="task">
+      <div class="task-top">
+        <h3>Video Task #03</h3>
+        <span class="reward">+10 P</span>
+      </div>
+
+      <p>
+        Complete this fixed-point task.
+      </p>
+
+      <button class="watch" data-task="task03">
+        ▶ Watch Task
+      </button>
+    </div>
 
     <div class="notice">
-      Spin costs <b>20 points</b>.<br>
-      Rewards are randomly selected for this demo.
+      Points are demo rewards for this website.
+      Real withdrawals should only be added after proper
+      server-side verification and a legitimate funding system.
     </div>
 
   </div>
 
 </main>
 
-<div class="bottom">
-  <div class="bottom-inner">
-
-    <div class="nav active">
-      <span class="nav-icon">🏠</span>
-      Home
-    </div>
-
-    <div class="nav">
-      <span class="nav-icon">🎬</span>
-      Tasks
-    </div>
-
-    <div class="nav">
-      <span class="nav-icon">🎡</span>
-      Spin
-    </div>
-
-    <div class="nav">
-      <span class="nav-icon">👤</span>
-      Profile
-    </div>
-
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
-<script>
+<script type="module">
 
-let points = Number(localStorage.getItem("points")) || 0;
-let tasks = Number(localStorage.getItem("tasks")) || 0;
-let streak = Number(localStorage.getItem("streak")) || 0;
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-function updateUI(){
-
-  document.getElementById("points").textContent = points;
-  document.getElementById("tasks").textContent = tasks;
-  document.getElementById("streak").textContent = streak;
-
-  localStorage.setItem("points",points);
-  localStorage.setItem("tasks",tasks);
-  localStorage.setItem("streak",streak);
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
 }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  increment
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAyK2ENmsEyQDuQYSi34bcmEIogT2cw9tc",
+  authDomain: "watchandspin-16949.firebaseapp.com",
+  projectId: "watchandspin-16949",
+  storageBucket: "watchandspin-16949.firebasestorage.app",
+  messagingSenderId: "958131507105",
+  appId: "1:958131507105:web:d1af6626d000955e9285e0",
+  measurementId: "G-C1RNNJ3Y0H"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const provider = new GoogleAuthProvider();
+
+
+const loginBox = document.getElementById("loginBox");
+const appBox = document.getElementById("appBox");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const pointsEl = document.getElementById("points");
+const tasksEl = document.getElementById("tasks");
+const streakEl = document.getElementById("streak");
+const emailEl = document.getElementById("userEmail");
+
+const toast = document.getElementById("toast");
+
 
 function showToast(message){
-
-  const toast = document.getElementById("toast");
-
   toast.textContent = message;
-  toast.classList.add("show");
+  toast.style.display = "block";
 
   setTimeout(()=>{
-    toast.classList.remove("show");
-  },2200);
+    toast.style.display = "none";
+  },2500);
 }
 
-function watchTask(button,reward){
 
-  if(button.disabled) return;
+loginBtn.onclick = async ()=>{
 
-  button.disabled = true;
-  button.textContent = "⏳ Watching...";
+  try{
 
-  setTimeout(()=>{
+    await signInWithPopup(auth,provider);
 
-    points += reward;
-    tasks += 1;
-    streak += 1;
+  }catch(error){
 
-    button.textContent = "✓ Completed";
+    console.error(error);
+    showToast("Login failed");
 
-    updateUI();
-
-    showToast("🎉 +" + reward + " points earned!");
-
-  },5000);
-}
-
-function spinWheel(){
-
-  if(points < 20){
-
-    showToast("❌ You need 20 points to spin.");
-    return;
   }
 
-  const button = document.getElementById("spinBtn");
-  const wheel = document.getElementById("wheel");
+};
 
-  button.disabled = true;
 
-  points -= 20;
-  updateUI();
+logoutBtn.onclick = async ()=>{
 
-  const rotation = 1440 + Math.floor(Math.random()*360);
+  await signOut(auth);
 
-  wheel.style.transform = "rotate(" + rotation + "deg)";
+};
 
-  setTimeout(()=>{
 
-    const rewards = [5,10,15,20,30,50];
-    const reward = rewards[Math.floor(Math.random()*rewards.length)];
+async function loadUser(user){
 
-    points += reward;
+  const ref = doc(db,"users",user.uid);
+  const snap = await getDoc(ref);
 
-    updateUI();
+  if(!snap.exists()){
 
-    showToast("🎉 Lucky Spin: +" + reward + " points!");
+    await setDoc(ref,{
+      email:user.email || "",
+      name:user.displayName || "",
+      points:0,
+      tasks:0,
+      streak:0,
+      createdAt:new Date().toISOString()
+    });
 
-    button.disabled = false;
+    pointsEl.textContent = "0";
+    tasksEl.textContent = "0";
+    streakEl.textContent = "0";
 
-  },3200);
+  }else{
+
+    const data = snap.data();
+
+    pointsEl.textContent = data.points || 0;
+    tasksEl.textContent = data.tasks || 0;
+    streakEl.textContent = data.streak || 0;
+
+  }
+
+  emailEl.textContent = user.email || "";
+
 }
 
-updateUI();
+
+onAuthStateChanged(auth,async(user)=>{
+
+  if(user){
+
+    loginBox.classList.add("hidden");
+    appBox.classList.remove("hidden");
+
+    await loadUser(user);
+
+  }else{
+
+    loginBox.classList.remove("hidden");
+    appBox.classList.add("hidden");
+
+  }
+
+});
+
+
+document.querySelectorAll(".watch").forEach(button=>{
+
+  button.onclick = async ()=>{
+
+    const user = auth.currentUser;
+
+    if(!user){
+      showToast("Please login first");
+      return;
+    }
+
+    if(button.disabled) return;
+
+    button.disabled = true;
+    button.textContent = "Watching...";
+
+    setTimeout(async()=>{
+
+      try{
+
+        const ref = doc(db,"users",user.uid);
+
+        await updateDoc(ref,{
+          points:increment(10),
+          tasks:increment(1)
+        });
+
+        const snap = await getDoc(ref);
+        const data = snap.data();
+
+        pointsEl.textContent = data.points || 0;
+        tasksEl.textContent = data.tasks || 0;
+
+        button.textContent = "✓ Completed";
+        showToast("+10 Points");
+
+      }catch(error){
+
+        console.error(error);
+
+        button.disabled = false;
+        button.textContent = "▶ Watch Task";
+
+        showToast("Could not save points");
+
+      }
+
+    },5000);
+
+  };
+
+});
 
 </script>
 
 </body>
-                          </html>
+        </html>
