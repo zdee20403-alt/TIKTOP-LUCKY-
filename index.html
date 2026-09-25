@@ -415,10 +415,23 @@ document.querySelectorAll(".watch").forEach(button=>{
 
         const ref = doc(db,"users",user.uid);
 
-        await updateDoc(ref,{
-          points:increment(10),
-          tasks:increment(1)
-        });
+        const snap = await getDoc(ref);
+
+if(!snap.exists()){
+  await setDoc(ref,{
+    email:user.email || "",
+    name:user.displayName || "",
+    points:10,
+    tasks:1,
+    streak:0,
+    createdAt:new Date().toISOString()
+  });
+}else{
+  await updateDoc(ref,{
+    points:increment(10),
+    tasks:increment(1)
+  });
+  }
 
         const snap = await getDoc(ref);
         const data = snap.data();
@@ -447,13 +460,7 @@ document.querySelectorAll(".watch").forEach(button=>{
 });
 
 </script>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup
-  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
 
   const firebaseConfig = {
     apiKey: "AIzaSyAyK2ENmsEyQDuQYSi34bcmEIogT2cw9tc",
